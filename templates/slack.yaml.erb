@@ -3,3 +3,6 @@
 :slack_channel: '<%= @slack_channel %>'
 :slack_botname: '<%= @slack_botname %>'
 :slack_iconurl: '<%= @slack_iconurl %>'
+<%- if @notify_on_change -%>
+:notify_on_change: '<%= @notify_on_change %>'
+<%- end -%>

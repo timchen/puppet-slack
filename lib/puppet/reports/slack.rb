@@ -16,9 +16,10 @@ Puppet::Reports.register_report(:slack) do
   SLACK_CHANNEL = @config[:slack_channel]
   SLACK_BOTNAME = @config[:slack_botname]
   SLACK_ICONURL = @config[:slack_iconurl]
+  NOTIFY_ON_CHANGE = @config[:notify_on_change] || true
 
   def process
-    if self.status == "failed" or self.status == "changed"
+    if self.status == "failed" or (self.status == "changed" && NOTIFY_ON_CHANGE)
       Puppet.debug "Sending status for #{self.host} to Slack."
       conn = Faraday.new(:url => "#{SLACK_WEBHOOK}") do |faraday|
           faraday.request  :url_encoded
