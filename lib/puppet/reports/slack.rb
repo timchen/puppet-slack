@@ -17,7 +17,8 @@ Puppet::Reports.register_report(:slack) do
   SLACK_BOTNAME = @config[:slack_botname]
   SLACK_ICONURL = @config[:slack_iconurl]
   NOTIFY_ON_CHANGE = @config[:notify_on_change].nil? ? true : @config[:notify_on_change]
-  NOTIFICATION_ENVIRONMENTS = @config[:notification_environments].nil? ? nil : @config[:notification_environments].split(',')
+  NOTIFICATION_ENVIRONMENTS = @config[:notification_environments].nil? ? nil : 
+    @config[:notification_environments].gsub(' ', '').split(',')
 
   def process
     if self.status == "failed" or (self.status == "changed" && NOTIFY_ON_CHANGE)
